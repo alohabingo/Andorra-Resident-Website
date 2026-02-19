@@ -21,3 +21,4 @@ pnpm-debug.log*
 
 icon.d.ts
 *.cache
+__backup_initial_scaffold/
