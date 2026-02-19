@@ -2,11 +2,9 @@
 import { parse, isBefore } from 'date-fns';
 import {
 	Container,
-	TextCardSection,
 	BlogPostsList,
 } from '@components/odyssey-theme';
 import Layout from '../../layouts/Page.astro';
-import NewsletterForm from '../../components/forms/NewsletterForm.astro';
 
 const posts = await Astro.glob('./posts/*.mdx').then(posts =>
 	posts
@@ -34,14 +32,6 @@ const seo = {
 
 <Layout {seo}>
 	<Container>
-		<TextCardSection>
-			<h1>Odyssey Blog</h1>
-			<p>
-				View our blog to stay up to date on the latest news about our business.
-				Want to be the first to hear about a new blog post? Join our newsletter!
-			</p>
-			<NewsletterForm />
-		</TextCardSection>
 		<section class="blog-posts-list__section">
 			<h2>Recent Posts</h2>
 			<BlogPostsList posts={posts} />
@@ -52,5 +42,17 @@ const seo = {
 <style>
 	.blog-posts-list__section {
 		margin: var(--section-margin) auto;
+		padding-top: 3.5rem;
+	}
+	.blog-posts-list__section h2 {
+		font-size: 1.65rem;
+		margin-bottom: 1rem;
+	}
+	.blog-posts-list__section :global(.blog-post__preview h3) {
+		font-size: 1.08rem;
+		margin-bottom: 0.35rem;
+	}
+	.blog-posts-list__section :global(.blog-post__preview p) {
+		font-size: 0.9rem;
 	}
 </style>

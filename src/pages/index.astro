@@ -1,92 +1,776 @@
 ---
-import { Container, FeatureCard } from '@components/odyssey-theme';
-
 import Layout from '../layouts/Page.astro';
-import HomeHeroSection from '../components/sections/heros/HomeHeroSection.astro';
+
+const benefitGroups = [
+	{
+		title: 'Fiscal',
+		items: ['Max 10% personal tax', '0% wealth & inheritance tax', 'Exceptionally low VAT (4.5%)'],
+		cta: 'View Benefits',
+	},
+	{
+		title: 'Security & Ease',
+		items: ['Safest country in Europe', 'High-quality healthcare', 'Easy access to Spain & France'],
+		cta: 'View Details',
+	},
+	{
+		title: 'Lifestyle',
+		items: ['90% natural park', 'World-class skiing & mountain sports', 'Luxury alpine chalets & spa'],
+		cta: 'View Lifestyle',
+	},
+];
+
+const steps = [
+	{
+		title: 'Get in Touch',
+		description: 'Share your goals and profile in a short introductory call.',
+	},
+	{
+		title: 'Decide Residency Type',
+		description: 'We recommend active, passive, or digital based on your goals.',
+	},
+	{
+		title: 'Obtain Residency',
+		description: 'We prepare documents and guide your application end-to-end.',
+	},
+	{
+		title: 'Enjoy Andorra',
+		description: 'Settle in with confidence and start your new chapter.',
+	},
+];
 ---
 
-<Layout>
-	<HomeHeroSection />
-	<Container>
-		<section class="feature-card__section">
-			<h2>Landing Pages</h2>
-			<p>
-				Use one of our landing pages to jumpstart your website or
-				ad campaign.
+<Layout
+	seo={{
+		title: 'Andorran Residency Made Simple',
+		description:
+			'Residency support in Andorra for entrepreneurs, investors, and remote workers.',
+	}}
+>
+	<section class="hero">
+		<div class="hero-overlay">
+			<p class="hero-kicker">Residency Advisory</p>
+			<h1>Andorran Residency Made Simple.</h1>
+			<p class="hero-copy">
+				Expert legal and tax guidance for entrepreneurs, investors, and remote workers
+				relocating to Andorra.
 			</p>
-			<div class="feature-card__grid">
-				<FeatureCard href="/landing-pages/landing-1" title="Landing Page 1" imgSrc="/assets/images/home/screenshots/landing-1">
-				</FeatureCard>
-				<FeatureCard href="/landing-pages/landing-2" title="Landing Page 2" imgSrc="/assets/images/home/screenshots/landing-2">
-				</FeatureCard>
+			<div class="hero-actions">
+				<a class="btn btn-accent" href="#book-call">Book a Free Intro Call</a>
+				<button class="btn btn-outline js-email-popup-trigger" type="button">Request Info by Email</button>
 			</div>
-		</section>
-	</Container>
+		</div>
+	</section>
 
-	<Container>
-		<section class="feature-card__section">
-			<h2>Company Pages</h2>
-			<p>
-				Use one of our prebuilt company pages for your about page, contact page,
-				legal pages, blog posts, etc.
-			</p>
-			<div class="feature-card__grid">
-				<FeatureCard href="/company/about" title="About Page" imgSrc="/assets/images/home/screenshots/about">
-				</FeatureCard>
-				<FeatureCard href="/company/contact" title="Contact Page" imgSrc="/assets/images/home/screenshots/contact">
-				</FeatureCard>
-				<FeatureCard href="/blog/" title="Blog Page" imgSrc="/assets/images/home/screenshots/blog">
-				</FeatureCard>
-				<FeatureCard
-					href="/blog/posts/remote-work-mental-health"
-					title="Blog Post"
-          imgSrc="/assets/images/home/screenshots/blog-post"
-				>
-				</FeatureCard>
-				<FeatureCard
-					href="/company/legal"
-					imgSrc="/assets/images/home/screenshots/legal"
-					title="Legal Page"
-				>
-				</FeatureCard>
-			</div>
-		</section>
-	</Container>
+	<section class="trust-strip">
+		<div class="trust-inner">
+			<article class="trust-item">
+				<div class="trust-visual">
+					<p class="trust-stars" aria-hidden="true">★★★★★</p>
+				</div>
+				<h3>4.9/5 Rating</h3>
+				<p>Based on 200+ Reviews</p>
+			</article>
+			<article class="trust-item">
+				<div class="trust-visual">
+					<div class="trust-icon" aria-hidden="true">👥</div>
+				</div>
+				<h3>500+ Happy Clients</h3>
+				<p>Trusted for premium guidance</p>
+			</article>
+			<article class="trust-item">
+				<div class="trust-visual">
+					<div class="trust-icon" aria-hidden="true">🏅</div>
+				</div>
+				<h3>10+ Years Experience</h3>
+				<p>Certified expert advisors</p>
+			</article>
+		</div>
+	</section>
 
-	<Container>
-		<section class="feature-card__section">
-			<h2>Theme Pages</h2>
-			<p>Learn more about how to set up and use the Odyssey Theme.</p>
-			<div class="feature-card__grid">
-				<FeatureCard
-					href="/theme/get-started"
-					imgSrc="/assets/images/home/screenshots/get-started"
-					title="Get Started"
-				>
-				</FeatureCard>
-				<FeatureCard
-					href="/theme/style-guide"
-					imgSrc="/assets/images/home/screenshots/style-guide"
-					title="Style Guide"
-				>
-				</FeatureCard>
+	<section id="why-andorra" class="section section-surface">
+		<div class="section-heading">
+			<h2>Why Andorra?</h2>
+			<p>Find your reason to make the move.</p>
+		</div>
+		<div class="benefit-groups">
+			{
+				benefitGroups.map((group) => (
+					<article class="benefit-row">
+						<h3>{group.title}</h3>
+						<ul>
+							{group.items.map((item) => (
+								<li>{item}</li>
+							))}
+						</ul>
+						<a class="btn btn-small btn-accent" href="#book-call">
+							{group.cta}
+						</a>
+					</article>
+				))
+			}
+		</div>
+	</section>
+
+	<section id="how-it-works" class="section">
+		<div class="section-heading center">
+			<h2>How to get <span>Andorran Residency?</span></h2>
+			<p>Just follow these 4 simple steps and the residency is yours.</p>
+		</div>
+		<div class="timeline">
+			{steps.map((step, index) => (
+				<article class="step-card">
+					<div class="step-number">{index + 1}</div>
+					<h3>{step.title}</h3>
+					<p>{step.description}</p>
+				</article>
+			))}
+		</div>
+		<div class="center">
+			<a class="btn btn-accent" href="#book-call">Talk to an Advisor</a>
+		</div>
+	</section>
+
+	<section id="residency-types" class="section section-surface">
+		<div class="section-heading center">
+			<h2>Types of Residency</h2>
+			<p>Which option best matches your situation?</p>
+		</div>
+		<div class="type-grid">
+			<article class="type-card">
+				<p class="type-label">Active</p>
+				<h3>For Entrepreneurs</h3>
+				<p>Best for business owners moving operations or opening in Andorra.</p>
+				<a class="btn btn-small btn-accent" href="#book-call">See More</a>
+			</article>
+			<article class="type-card">
+				<p class="type-label">Passive</p>
+				<h3>For Investors & Families</h3>
+				<p>Designed for individuals seeking low-tax residency with flexibility.</p>
+				<a class="btn btn-small btn-accent" href="#book-call">See More</a>
+			</article>
+		</div>
+	</section>
+
+	<section id="compare" class="section compare">
+		<div class="section-heading">
+			<h2>Let&apos;s Compare</h2>
+			<p>Quick overview of common Andorra residency profiles.</p>
+		</div>
+		<div class="table-wrap">
+			<table>
+				<thead>
+					<tr>
+						<th>Criteria</th>
+						<th>Active</th>
+						<th>Passive</th>
+						<th>Digital</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Investment</td>
+						<td>n/a</td>
+						<td>EUR 600,000</td>
+						<td>n/a</td>
+					</tr>
+					<tr>
+						<td>State Fees</td>
+						<td>EUR 50,000</td>
+						<td>EUR 47,500</td>
+						<td>n/a</td>
+					</tr>
+					<tr>
+						<td>Minimum Stay</td>
+						<td>183 days</td>
+						<td>90 days</td>
+						<td>90 days</td>
+					</tr>
+					<tr>
+						<td>Main Requirement</td>
+						<td>Andorran company ownership</td>
+						<td>Private investment in Andorra</td>
+						<td>International remote income</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<section id="book-call" class="section book-call">
+		<div class="call-card">
+			<div>
+				<h2>Book a free call?</h2>
+				<p>
+					Our experts will assess your profile and recommend the right pathway to
+					Andorran residency.
+				</p>
+				<a class="btn btn-accent" href="/company/contact">Book Free Assessment</a>
 			</div>
-		</section>
-	</Container>
+			<img src="/assets/images/home/earth-hero.jpg" alt="Snowy mountain view in Andorra" />
+		</div>
+	</section>
+
+	<section class="section newsletter-signup">
+		<div class="newsletter-signup__card">
+			<div>
+				<p class="newsletter-signup__kicker">Stay Updated</p>
+				<h2>Subscribe to Our Newsletter</h2>
+				<p>
+					Get practical insights on Andorran residency, legal updates, and relocation
+					tips delivered to your inbox.
+				</p>
+			</div>
+			<form class="newsletter-signup__form">
+				<label class="sr-only" for="newsletter-email">Email</label>
+				<input
+					id="newsletter-email"
+					type="email"
+					placeholder="Enter your email"
+					autocomplete="email"
+				/>
+				<button class="btn btn-accent" type="button">Subscribe</button>
+			</form>
+		</div>
+	</section>
+
+	<div id="email-info-popup" class="email-popup" hidden>
+		<div class="email-popup__backdrop" data-close-popup></div>
+		<div class="email-popup__dialog" role="dialog" aria-modal="true" aria-labelledby="email-popup-title">
+			<button class="email-popup__close" type="button" aria-label="Close popup" data-close-popup>×</button>
+			<h3 id="email-popup-title">Resideny Information Request</h3>
+			<p>Enter your email address and we will send you information about Andorra and the different residency type options.</p>
+			<form class="email-popup__form">
+				<label class="sr-only" for="client-email">Email address</label>
+				<input id="client-email" name="email" type="email" placeholder="Enter your email address" autocomplete="email" required />
+				<button class="btn btn-accent" type="submit" data-default-label="Request Info">Request Info</button>
+			</form>
+			<p class="email-popup__status" id="email-popup-status" aria-live="polite"></p>
+		</div>
+	</div>
 </Layout>
 
+<script type="module">
+	const popupTrigger = document.querySelector('.js-email-popup-trigger');
+	const popup = document.querySelector('#email-info-popup');
+	const popupDialog = popup?.querySelector('.email-popup__dialog');
+	const popupBackdrop = popup?.querySelector('.email-popup__backdrop');
+	const popupCloseButton = popup?.querySelector('.email-popup__close');
+	const popupForm = popup?.querySelector('.email-popup__form');
+	const popupInput = popup?.querySelector('#client-email');
+	const popupStatus = popup?.querySelector('#email-popup-status');
+	const popupSubmitButton = popupForm?.querySelector('button[type="submit"]');
+	let closeTimer;
+
+	if (popup) {
+		popupTrigger?.addEventListener('click', (event) => {
+			popup.hidden = false;
+			document.body.style.overflow = 'hidden';
+			popupInput?.focus();
+		});
+
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && !popup.hidden) closePopup();
+		});
+		popupBackdrop?.addEventListener('click', closePopup);
+		popupCloseButton?.addEventListener('click', closePopup);
+		popup.addEventListener('click', (event) => {
+			if (popup.hidden) return;
+			const target = event.target;
+			if (!(target instanceof Node)) return;
+			if (popupDialog && !popupDialog.contains(target)) {
+				closePopup();
+			}
+		});
+
+		popupForm?.addEventListener('submit', (event) => {
+			event.preventDefault();
+			if (popupSubmitButton) {
+				popupSubmitButton.disabled = false;
+				popupSubmitButton.textContent = 'Close Form';
+				popupSubmitButton.setAttribute('type', 'button');
+			}
+			if (popupStatus) {
+				popupStatus.textContent = 'Submission successful. We will contact you shortly.';
+				popupStatus.classList.add('is-success');
+			}
+			closeTimer = window.setTimeout(() => {
+				closePopup();
+			}, 1200);
+		});
+
+		popupSubmitButton?.addEventListener('click', () => {
+			if (popupStatus?.classList.contains('is-success')) {
+				closePopup();
+			}
+		});
+	}
+
+	function closePopup() {
+		if (!popup) return;
+		if (closeTimer) {
+			window.clearTimeout(closeTimer);
+			closeTimer = undefined;
+		}
+		popup.hidden = true;
+		document.body.style.overflow = '';
+		popupForm?.reset();
+		if (popupSubmitButton) {
+			popupSubmitButton.disabled = false;
+			popupSubmitButton.textContent = popupSubmitButton.getAttribute('data-default-label') || 'Request Info';
+			popupSubmitButton.setAttribute('type', 'submit');
+		}
+		if (popupStatus) {
+			popupStatus.textContent = '';
+			popupStatus.classList.remove('is-success');
+		}
+	}
+</script>
+
 <style>
-	.feature-card__section {
-		margin: var(--section-margin) auto;
+	:global(#page) {
+		background: linear-gradient(180deg, #ffffff 0%, #f6f8fb 45%, #ffffff 100%);
 	}
-	.feature-card__grid {
+	section {
+		scroll-margin-top: 5.5rem;
+	}
+	.hero {
+		min-height: 90vh;
+		padding: 4.4rem 1rem 11.4rem;
+		background-image:
+			linear-gradient(165deg, rgba(12, 20, 40, 0.86) 10%, rgba(12, 20, 40, 0.62) 60%),
+			url('/Andorra-la-Vella-Travel-Guide-Travel-S-Helper.webp');
+		background-position: center, center;
+		background-repeat: no-repeat, no-repeat;
+		background-size: 100% 100%, 112% auto;
+		color: #fff;
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--theme-grid-gap);
+		align-items: end;
 	}
-	@media (max-width: 768px) {
-		.feature-card__grid {
+	.hero-overlay {
+		max-width: 64rem;
+		margin: 0 auto 0 clamp(4.2rem, 6.9vw, 5.3rem);
+		text-align: left;
+	}
+	.hero-overlay h1 {
+		font-size: clamp(1.65rem, 1.35rem + 1.9vw, 2.45rem);
+		margin-bottom: 0.7rem;
+	}
+	.hero-kicker {
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--theme-button-bg);
+		font-size: var(--font-size-sm);
+	}
+	.hero-copy {
+		max-width: 42rem;
+		font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
+	}
+	.hero-actions {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+	.hero-actions .btn {
+		padding: 0.56rem 1rem;
+		font-size: 0.95rem;
+	}
+	.trust-strip {
+		background: #f1f2f4;
+		padding: 1.95rem 1rem 1.85rem;
+	}
+	.trust-inner {
+		max-width: 1240px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+	.trust-item {
+		text-align: center;
+	}
+	.trust-visual {
+		min-height: 2.2rem;
+		display: grid;
+		place-items: center;
+		margin-bottom: 0.3rem;
+	}
+	.trust-item .trust-stars {
+		color: #f39a1f;
+		letter-spacing: 0.1rem;
+		font-size: 0.88rem;
+		margin-bottom: 0;
+	}
+	.trust-icon {
+		width: 2.15rem;
+		height: 2.15rem;
+		border-radius: 999px;
+		margin: 0 auto;
+		display: grid;
+		place-items: center;
+		background: rgba(122, 72, 229, 0.12);
+		font-size: 0.9rem;
+	}
+	.trust-item h3 {
+		font-size: 1.02rem;
+		margin-bottom: 0.2rem;
+	}
+	.trust-item p {
+		margin-bottom: 0;
+		color: #707482;
+		font-size: 0.8rem;
+	}
+	.section {
+		max-width: 72rem;
+		margin: 0 auto;
+		padding: 4rem 1rem;
+	}
+	.section-surface {
+		background-color: #e3e7ed;
+		border-radius: 1.5rem;
+		margin-top: 1rem;
+	}
+	.section-heading h2 span {
+		color: #d7ad00;
+	}
+	.section-heading p {
+		max-width: 34rem;
+		opacity: 0.8;
+	}
+	.center {
+		text-align: center;
+	}
+	.benefit-groups {
+		display: grid;
+		gap: 1rem;
+	}
+	.benefit-row {
+		display: grid;
+		grid-template-columns: 1fr 3fr auto;
+		gap: 1rem;
+		align-items: center;
+		background: #fff;
+		border-radius: 0.9rem;
+		padding: 1rem;
+	}
+	.benefit-row h3,
+	.step-card h3,
+	.type-card h3 {
+		font-size: var(--font-size-md);
+	}
+	.benefit-row ul {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.5rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.benefit-row li {
+		font-size: var(--font-size-sm);
+	}
+	.timeline {
+		margin: 2rem 0;
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 1rem;
+	}
+	.step-card {
+		background: #fff;
+		border: 2px solid #e3e7ed;
+		border-radius: 1rem;
+		padding: 1rem;
+		text-align: center;
+	}
+	.step-number {
+		width: 2rem;
+		height: 2rem;
+		border-radius: 999px;
+		margin: 0 auto 0.6rem;
+		display: grid;
+		place-items: center;
+		background: #f9f14d;
+		color: #27344f;
+		font-weight: 700;
+	}
+	.type-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+	.type-card {
+		background: #fff;
+		border: 2px solid #49577d;
+		border-radius: 1rem;
+		padding: 1.25rem;
+		text-align: center;
+	}
+	.type-label {
+		background: #f9f14d;
+		color: #27344f;
+		width: fit-content;
+		padding: 0.2rem 0.7rem;
+		border-radius: 999px;
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		margin: 0 auto 0.9rem;
+	}
+	.compare {
+		color: #fff;
+		background:
+			linear-gradient(160deg, rgba(45, 60, 92, 0.86), rgba(17, 24, 40, 0.86)),
+			url('/assets/images/home/dark-hero.jpg') center/cover no-repeat;
+		border-radius: 1.5rem;
+		margin-top: 1rem;
+	}
+	.table-wrap {
+		overflow-x: auto;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		background: rgba(255, 255, 255, 0.06);
+		backdrop-filter: blur(2px);
+	}
+	th,
+	td {
+		padding: 0.75rem;
+		border: 1px solid rgba(255, 255, 255, 0.35);
+		text-align: left;
+	}
+	th {
+		color: #f9f14d;
+	}
+	.book-call {
+		padding-top: 5rem;
+	}
+	.newsletter-signup {
+		padding-top: 1rem;
+		padding-bottom: 2rem;
+	}
+	.newsletter-signup__form input {
+		height: 2.45rem;
+		border: 1px solid #c7d1df;
+		border-radius: 999px;
+		padding: 0 0.9rem;
+		font: inherit;
+		font-size: 1rem;
+	}
+	.newsletter-signup__card {
+		background: #f3f5f9;
+		border: 1px solid #d7deea;
+		border-radius: 1.2rem;
+		padding: 1.4rem;
+		display: grid;
+		grid-template-columns: 1.25fr 1fr;
+		gap: 1rem;
+		align-items: center;
+	}
+	.newsletter-signup__kicker {
+		margin-bottom: 0.3rem;
+		color: var(--theme-button-bg);
+		font-size: 0.88rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+	.newsletter-signup__card h2 {
+		font-size: 1.65rem;
+		margin-bottom: 0.35rem;
+	}
+	.newsletter-signup__card p {
+		font-size: 1.03rem;
+	}
+	.newsletter-signup__form {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 0.6rem;
+		align-items: center;
+	}
+	.newsletter-signup__form .btn {
+		font-size: 0.98rem;
+	}
+	.call-card {
+		background: #fff;
+		border: 1px solid #d6dce6;
+		border-radius: 1rem;
+		padding: 1.25rem;
+		display: grid;
+		grid-template-columns: 1.3fr 1fr;
+		gap: 1rem;
+		align-items: center;
+	}
+	.call-card img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 0.8rem;
+	}
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none;
+		border-radius: 999px;
+		padding: 0.55rem 1rem;
+		font-weight: 700;
+		border: 1px solid transparent;
+	}
+	.btn-accent {
+		background: var(--theme-button-bg);
+		color: var(--theme-button-text);
+		box-shadow: 0 8px 18px rgba(213, 121, 9, 0.38);
+		transition: filter 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+	}
+	.btn-accent:hover {
+		filter: brightness(1.05);
+		box-shadow: 0 9px 20px rgba(213, 121, 9, 0.46);
+		transform: translateY(-0.5px);
+	}
+	.btn-outline {
+		background: transparent;
+		border-width: 2px;
+		border-color: rgba(255, 255, 255, 0.75);
+		color: #fff;
+		transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+	}
+	.btn-outline:hover {
+		background: var(--theme-button-bg);
+		border-color: var(--theme-button-bg);
+		color: var(--theme-button-text);
+	}
+	.btn-small {
+		font-size: var(--font-size-sm);
+		padding: 0.4rem 0.8rem;
+	}
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		border: 0;
+	}
+	.email-popup {
+		position: fixed;
+		inset: 0;
+		z-index: 1200;
+		display: grid;
+		place-items: center;
+		padding: 1rem;
+	}
+	.email-popup[hidden] {
+		display: none !important;
+	}
+	.email-popup__backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(8, 12, 22, 0.56);
+		backdrop-filter: blur(2px);
+		-webkit-backdrop-filter: blur(2px);
+	}
+	.email-popup__dialog {
+		position: relative;
+		z-index: 1;
+		width: min(31rem, 100%);
+		background: #ffffff;
+		border: 1px solid #dbe3ee;
+		border-radius: 1rem;
+		box-shadow: 0 18px 42px rgba(15, 23, 42, 0.26);
+		padding: 1.2rem;
+	}
+	.email-popup__close {
+		position: absolute;
+		top: 0.55rem;
+		right: 0.7rem;
+		border: 0;
+		background: transparent;
+		font-size: 1.4rem;
+		line-height: 1;
+		cursor: pointer;
+		color: #475569;
+	}
+	.email-popup__dialog h3 {
+		margin-bottom: 0.35rem;
+		font-size: 1.15rem;
+	}
+	.email-popup__dialog p {
+		margin-bottom: 0.8rem;
+		font-size: 0.9rem;
+		color: #4a5568;
+	}
+	.email-popup__form {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 0.55rem;
+	}
+	.email-popup__form input {
+		height: 2.55rem;
+		border: 1px solid #c7d1df;
+		border-radius: 999px;
+		padding: 0 0.9rem;
+		font: inherit;
+		font-size: 0.94rem;
+	}
+	.email-popup__form .btn {
+		height: 2.55rem;
+		padding: 0 1rem;
+		font-size: 0.9rem;
+	}
+	.email-popup__status {
+		min-height: 1.25rem;
+		margin: 0.5rem 0 0;
+		font-size: 0.83rem;
+	}
+	.email-popup__status.is-success {
+		color: #0f8a44;
+		font-weight: 600;
+	}
+	@media (max-width: 640px) {
+		.email-popup__form {
 			grid-template-columns: 1fr;
+		}
+	}
+	@media (max-width: 960px) {
+		.benefit-row {
+			grid-template-columns: 1fr;
+		}
+		.benefit-row ul {
+			grid-template-columns: 1fr;
+		}
+		.timeline {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		.call-card {
+			grid-template-columns: 1fr;
+		}
+		.newsletter-signup__card {
+			grid-template-columns: 1fr;
+		}
+		.newsletter-signup__form {
+			grid-template-columns: 1fr;
+		}
+		.trust-inner {
+			grid-template-columns: 1fr;
+			gap: 1.4rem;
+		}
+	}
+	@media (max-width: 640px) {
+		.hero {
+			min-height: 76vh;
+			background-size: 100% 100%, cover;
+		}
+		.hero-overlay {
+			margin: 0;
+		}
+		.timeline,
+		.type-grid {
+			grid-template-columns: 1fr;
+		}
+		.section {
+			padding: 3rem 1rem;
 		}
 	}
 </style>

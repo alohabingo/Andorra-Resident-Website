@@ -1,15 +1,19 @@
 export const nav = [
 	{
-		title: 'Home',
-		slug: '/',
+		title: 'Why Andorra?',
+		slug: '/#why-andorra',
+	},
+	{
+		title: 'Residency Types',
+		slug: '/#residency-types',
+	},
+	{
+		title: 'Services',
+		slug: '/#how-it-works',
 	},
 	{
 		title: 'Blog',
 		slug: '/blog',
-	},
-	{
-		title: 'About',
-		slug: '/company/about',
 	},
 	{
 		title: 'Contact',

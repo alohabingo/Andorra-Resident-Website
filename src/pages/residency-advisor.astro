@@ -1,0 +1,278 @@
+---
+import Layout from '../layouts/Page.astro';
+import { Container } from '@components/odyssey-theme';
+
+const seo = {
+	title: 'Which Residency Is Best For Me? | Andorra Residency Advisor',
+	description: 'Answer a few questions and get a recommendation between Active and Passive Residency.',
+};
+---
+
+<Layout {seo}>
+	<Container>
+		<section class="advisor">
+			<div class="advisor__intro">
+				<p class="advisor__kicker">Residency Advisor</p>
+				<h1>Which Andorra Residency Is Best For You?</h1>
+				<p>
+					Complete this quick assessment based on your personal situation. At the end,
+					you will receive a recommendation for Active Residency or Passive Residency.
+				</p>
+			</div>
+
+			<div class="advisor__grid">
+				<form id="residency-advisor-form" class="advisor-form">
+					<div class="field">
+						<label for="workPlan">1. What best describes your plan in Andorra?</label>
+						<select id="workPlan" name="workPlan" required>
+							<option value="">Select an option</option>
+							<option value="active">I want to run a business or work professionally from Andorra</option>
+							<option value="passive">I mainly want to live in Andorra and keep income/investments abroad</option>
+						</select>
+					</div>
+
+					<div class="field">
+						<label for="stayDays">2. How many days per year do you expect to live in Andorra?</label>
+						<select id="stayDays" name="stayDays" required>
+							<option value="">Select an option</option>
+							<option value="active">More than 183 days</option>
+							<option value="passive">Around 90 to 183 days</option>
+							<option value="neutral">Less than 90 days initially</option>
+						</select>
+					</div>
+
+					<div class="field">
+						<label for="incomeSource">3. What is your primary source of income?</label>
+						<select id="incomeSource" name="incomeSource" required>
+							<option value="">Select an option</option>
+							<option value="active">Business operations, consulting, or self-employment activity</option>
+							<option value="passive">Investments, dividends, rentals, or foreign salary</option>
+						</select>
+					</div>
+
+					<div class="field">
+						<label for="investmentProfile">4. Are you comfortable with the investment requirements often tied to passive residency?</label>
+						<select id="investmentProfile" name="investmentProfile" required>
+							<option value="">Select an option</option>
+							<option value="passive">Yes, I am prepared for this route</option>
+							<option value="active">No, I prefer to focus on business activity instead</option>
+						</select>
+					</div>
+
+					<div class="field">
+						<label for="priority">5. What is your main priority right now?</label>
+						<select id="priority" name="priority" required>
+							<option value="">Select an option</option>
+							<option value="active">Building operations and tax-efficient business substance</option>
+							<option value="passive">Lifestyle, asset protection, and family relocation</option>
+						</select>
+					</div>
+
+					<button type="submit" class="advisor-submit">Get My Recommendation</button>
+				</form>
+
+				<aside class="advisor-image" aria-hidden="true">
+					<img src="/Andorra-la-Vella-Travel-Guide-Travel-S-Helper.webp" alt="Andorra mountain town landscape" loading="lazy" />
+				</aside>
+			</div>
+
+			<section id="advisor-result" class="advisor-result" hidden aria-live="polite">
+				<p class="advisor-result__label">Recommended Path</p>
+				<h2 id="advisor-result-title"></h2>
+				<p id="advisor-result-copy"></p>
+				<a id="advisor-result-link" class="advisor-result__link" href="#">Read More</a>
+			</section>
+		</section>
+	</Container>
+</Layout>
+
+<script type="module">
+	const form = document.querySelector('#residency-advisor-form');
+	const resultSection = document.querySelector('#advisor-result');
+	const resultTitle = document.querySelector('#advisor-result-title');
+	const resultCopy = document.querySelector('#advisor-result-copy');
+	const resultLink = document.querySelector('#advisor-result-link');
+
+	if (form && resultSection && resultTitle && resultCopy && resultLink) {
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const data = new FormData(form);
+			let activeScore = 0;
+			let passiveScore = 0;
+
+			for (const value of data.values()) {
+				if (value === 'active') activeScore += 1;
+				if (value === 'passive') passiveScore += 1;
+			}
+
+			const isActive = activeScore > passiveScore;
+			const isPassive = passiveScore > activeScore;
+
+			if (isActive) {
+				resultTitle.textContent = 'Active Residency';
+				resultCopy.textContent =
+					'Based on your answers, Active Residency appears to be the stronger fit. Your profile suggests a business-led relocation with ongoing professional activity in Andorra.';
+				resultLink.textContent = 'Read the Active Residency Guide';
+				resultLink.setAttribute('href', '/blog/posts/active-residency/');
+			} else if (isPassive) {
+				resultTitle.textContent = 'Passive Residency';
+				resultCopy.textContent =
+					'Based on your answers, Passive Residency appears to be the stronger fit. Your profile suggests a lifestyle and investment-led relocation with non-local income sources.';
+				resultLink.textContent = 'Read the Passive Residency Guide';
+				resultLink.setAttribute('href', '/blog/posts/passive-residency/');
+			} else {
+				resultTitle.textContent = 'Balanced Profile';
+				resultCopy.textContent =
+					'Your answers are balanced between Active and Passive Residency. A short consultation can confirm the best structure based on legal, tax, and family priorities.';
+				resultLink.textContent = 'Book a Free Intro Call';
+				resultLink.setAttribute('href', '/company/contact/');
+			}
+
+			resultSection.hidden = false;
+			resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		});
+	}
+</script>
+
+<style>
+	.advisor {
+		padding-top: 6rem;
+		padding-bottom: 3.5rem;
+	}
+	.advisor__intro {
+		max-width: 780px;
+	}
+	.advisor__grid {
+		margin-top: 1.5rem;
+		display: grid;
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+		gap: 1.3rem;
+		align-items: start;
+	}
+	.advisor__kicker {
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #f2a01f;
+		font-weight: 700;
+		margin-bottom: 0.4rem;
+	}
+	.advisor h1 {
+		font-size: clamp(1.7rem, 3vw, 2.4rem);
+		margin-bottom: 0.55rem;
+	}
+	.advisor__intro p {
+		font-size: 0.95rem;
+	}
+	.advisor-form {
+		display: grid;
+		gap: 0.95rem;
+		padding: 1.35rem;
+		border: 1px solid rgba(17, 24, 39, 0.1);
+		border-radius: 1rem;
+		background: #ffffff;
+		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+		height: 100%;
+	}
+	.field {
+		display: grid;
+		gap: 0.42rem;
+	}
+	.field label {
+		font-size: 0.88rem;
+		font-weight: 600;
+		color: #1f2937;
+	}
+	.field select {
+		height: 2.7rem;
+		padding: 0 0.75rem;
+		border-radius: 0.7rem;
+		border: 1px solid rgba(17, 24, 39, 0.18);
+		font-size: 0.9rem;
+		background: #fff;
+		color: #111827;
+	}
+	.field select:focus {
+		outline: 2px solid rgba(125, 39, 243, 0.24);
+		outline-offset: 1px;
+	}
+	.advisor-submit {
+		height: 2.65rem;
+		padding: 0 1.1rem;
+		border: 0;
+		border-radius: 999px;
+		background: linear-gradient(135deg, #f09a32, #d57909);
+		color: #fff;
+		font-size: 0.9rem;
+		font-weight: 600;
+		cursor: pointer;
+		width: fit-content;
+		box-shadow: 0 8px 18px rgba(213, 121, 9, 0.38);
+		transition: filter 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+	}
+	.advisor-submit:hover {
+		filter: brightness(1.05);
+		box-shadow: 0 9px 20px rgba(213, 121, 9, 0.46);
+		transform: translateY(-0.5px);
+	}
+	.advisor-result {
+		margin-top: 1.15rem;
+		padding: 1.15rem 1.2rem;
+		border-radius: 0.9rem;
+		border: 1px solid rgba(17, 24, 39, 0.1);
+		background: #f8fafc;
+	}
+	.advisor-result__label {
+		margin: 0;
+		font-size: 0.76rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #7f35f7;
+	}
+	.advisor-result h2 {
+		margin: 0.25rem 0;
+		font-size: 1.25rem;
+	}
+	.advisor-result p {
+		margin: 0;
+		font-size: 0.9rem;
+		line-height: 1.55;
+		color: #334155;
+	}
+	.advisor-result__link {
+		display: inline-flex;
+		margin-top: 0.85rem;
+		text-decoration: none;
+		color: #7f35f7;
+		font-weight: 700;
+		font-size: 0.88rem;
+	}
+	.advisor-image {
+		height: 100%;
+		border-radius: 1rem;
+		overflow: hidden;
+		border: 1px solid rgba(17, 24, 39, 0.08);
+		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+	}
+	.advisor-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	@media (max-width: 768px) {
+		.advisor {
+			padding-top: 5.1rem;
+		}
+		.advisor__grid {
+			grid-template-columns: 1fr;
+		}
+		.advisor-form {
+			padding: 1rem;
+		}
+		.advisor-image img {
+			min-height: 16rem;
+		}
+	}
+</style>

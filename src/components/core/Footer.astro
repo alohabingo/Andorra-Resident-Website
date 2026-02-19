@@ -3,28 +3,31 @@ import { Icon } from 'astro-icon/components';
 import Container  from '../core/Container.astro';
 import Plug from './Plug.astro';
 
-const { footerSocials, footerLists, copyrightName, background, color, showPlug: showPlug = true } =
+const { footerSocials, footerLists, copyrightName, background, color, brandDescription, showPlug: showPlug = true } =
   Astro.props;
 ---
 
 <footer
+  class="site-footer"
   style={background && `--footer-bg:${background}; --footer-color:${color}`}
 >
   <Container>
-    <div class="footer-grid__container">
-      <div class="footer-brand__container">
+    <div class="site-footer__grid">
+      <section class="site-footer__brand">
         <div>
           <slot name="logo" />
         </div>
-        <ul class="footer-socials__list">
+        {brandDescription && <p class="site-footer__description">{brandDescription}</p>}
+        <a class="site-footer__cta" href="/#book-call">Book a Free Intro Call</a>
+        <ul class="site-footer__socials">
           {
             footerSocials.map((social) => (
-              <li class="footer-socials__item">
+              <li>
                 <a
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="footer-socials__link"
+                  class="site-footer__social-link"
                   title={`Open ${social.name} profile`}
                 >
                   <Icon name={social.icon} width={24} height={24} />
@@ -33,94 +36,184 @@ const { footerSocials, footerLists, copyrightName, background, color, showPlug: 
             ))
           }
         </ul>
-      </div>
+      </section>
       {
-        footerLists.map((list) => (
-          <div>
-            <p><strong>{list.title}</strong></p>
-            <ul class="footer-link__list">
+        footerLists.map((list, index) => (
+          <section class={`site-footer__links-col site-footer__links-col-${index + 1}`}>
+            <h3>{list.title}</h3>
+            <ul class="site-footer__link-list">
               {list.items.map((item) => (
                 <li>
                   <a href={item.slug}>{item.title}</a>
                 </li>
               ))}
             </ul>
-          </div>
+          </section>
         ))
       }
     </div>
-    <div class="footer-copyright__container">
-      {showPlug && <Plug/>}
+    <div class="site-footer__bottom">
       <p>Copyright &copy; {new Date().getFullYear()} {copyrightName}</p>
+      <div class="site-footer__bottom-right">
+        {showPlug && <Plug/>}
+      </div>
     </div>
-
   </Container>
 </footer>
 
 <style>
-  footer {
-    --footer-bg: var(--theme-primary);
-    --footer-color: var(--theme-on-primary);
-    min-height: 40vh;
+  .site-footer {
+    --footer-bg: #ffffff;
+    --footer-color: #000000;
     background-color: var(--footer-bg);
     color: var(--footer-color);
-    border-top-left-radius: var(--theme-shape-radius);
-    border-top-right-radius: var(--theme-shape-radius);
+    margin-top: 4rem;
   }
-  .footer-grid__container {
-    padding: 10vh 0 1rem 0;
+  .site-footer :global(.container) {
+    max-width: 1200px;
+  }
+  .site-footer__grid {
+    padding: 4.5rem 0 2.5rem;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1.55fr 1fr 1fr 1fr;
+    gap: 2rem;
   }
-  .footer-socials__list {
-    margin: 1rem 0;
-    padding: 0;
-    display: flex;
-    list-style: none;
+  .site-footer__brand {
+    max-width: 24rem;
+    margin-top: -1.2rem;
   }
-  .footer-socials__item {
-    margin-right: 0.5rem;
+  .site-footer__brand > div {
+    transform: translateY(0.45rem);
   }
-  .footer-link__list {
+  .site-footer__description {
+    margin: 1rem 0 1.25rem;
+    color: rgba(0, 0, 0, 0.72);
+    font-size: 0.86rem;
+    line-height: 1.7;
+  }
+  .site-footer__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 1.35rem;
+    padding: 0.52rem 1rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #f09a32, #d57909);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: filter 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    box-shadow: 0 8px 18px rgba(213, 121, 9, 0.38);
+  }
+  .site-footer__cta:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 9px 20px rgba(213, 121, 9, 0.46);
+    transform: translateY(-0.5px);
+  }
+  .site-footer :global(.odyssey-logo) {
+    filter: brightness(0) saturate(100%);
+  }
+  .site-footer h3 {
+    margin: 0 0 0.45rem;
+    font-size: 0.9rem;
+    color: #f39a1f;
+    font-weight: 700;
+  }
+  .site-footer__grid > section:not(.site-footer__brand) {
+    justify-self: end;
+    text-align: left;
+    margin-top: 2.55rem;
+  }
+  .site-footer__links-col-1,
+  .site-footer__links-col-2 {
+    transform: translateX(4.4rem);
+  }
+  .site-footer__link-list {
     margin: 0;
     padding: 0;
     list-style: none;
   }
-  .footer-link__list li {
-    margin-bottom: 0.5rem;
+  .site-footer__link-list li {
+    margin: 0 0 0.28rem;
   }
-  .footer-link__list li a {
+  .site-footer__link-list a {
     text-decoration: none;
+    color: rgba(0, 0, 0, 0.78);
+    font-size: 0.88rem;
+    transition: color 160ms ease, opacity 160ms ease;
   }
-  .footer-link__list li a:hover {
-    opacity: 0.84;
+  .site-footer__link-list a:hover {
+    color: #000000;
+    opacity: 1;
   }
-  .footer-copyright__container {
+  .site-footer__socials {
+    margin: 0;
+    padding: 0;
     display: flex;
-    flex-direction: column;
-    /* justify-content: space-between; */
+    gap: 0.65rem;
+    list-style: none;
   }
-  .footer-copyright__container p {
-    font-size: var(--font-size-sm);
+  .site-footer__social-link {
+    text-decoration: none;
+    color: #000000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.06);
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+  .site-footer__social-link:hover {
+    color: #000000;
+    background: rgba(0, 0, 0, 0.14);
+  }
+  .site-footer__bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 1rem 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .site-footer__bottom p {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.72);
+    font-size: 0.84rem;
+  }
+  .site-footer__bottom-right {
+    display: flex;
+    align-items: center;
   }
   @media (max-width: 768px) {
-    .footer-grid__container :first-child {
-      grid-column: 1/-1;
-    }
-    .footer-grid__container {
-      padding: 5vh 0;
+    .site-footer__grid {
+      padding: 3.5rem 0 2rem;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
+      gap: 1.6rem;
+    }
+    .site-footer__brand {
+      grid-column: 1 / -1;
+      max-width: 100%;
+    }
+    .site-footer__grid > section:not(.site-footer__brand) {
+      justify-self: start;
+      text-align: left;
+    }
+    .site-footer__bottom {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
   @media (max-width: 600px) {
-    .footer-grid__container {
-      padding: 5vh 0;
+    .site-footer__grid {
+      padding: 3rem 0 1.6rem;
       grid-template-columns: 1fr;
-      gap: 1rem;
+      gap: 1.35rem;
     }
-    .footer-copyright__container {
-      flex-direction: column;
+    .site-footer__bottom {
+      padding-bottom: 1.2rem;
     }
   }
 </style>

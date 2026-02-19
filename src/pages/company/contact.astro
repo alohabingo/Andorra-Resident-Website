@@ -39,6 +39,7 @@ const seo = {
 <style>
 	.contact-hero__section {
 		margin: var(--section-margin) auto;
+		padding-top: 3.5rem;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		min-height: calc(90vh - var(--navbar-height));
@@ -52,10 +53,32 @@ const seo = {
 		background-color: var(--theme-surface-1);
 		border-radius: var(--theme-shape-radius);
 	}
+	.contact-hero__text-section h1 {
+		font-size: 2rem;
+		margin-bottom: 0.65rem;
+	}
+	.contact-hero__text-section p {
+		font-size: 0.95rem;
+	}
+	.contact-hero__text-section em,
+	.contact-hero__text-section a {
+		font-size: 0.92rem;
+	}
 	.col-2__container {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+	}
+	.col-2__container :global(label) {
+		font-size: 0.86rem;
+	}
+	.col-2__container :global(input),
+	.col-2__container :global(select),
+	.col-2__container :global(textarea) {
+		font-size: 0.86rem;
+	}
+	.col-2__container :global(.btn) {
+		font-size: 0.86rem;
 	}
 	@media (max-width: 768px) {
 		.contact-hero__section {
